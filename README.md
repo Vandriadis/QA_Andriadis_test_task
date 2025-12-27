@@ -46,6 +46,18 @@ pytest tests/api/test_pet_crud_negative.py
 pytest tests/api/test_pet_contracts.py
 ```
 
+Run UI tests:
+```bash
+# Run with Chrome (default)
+pytest tests/ui/ --browser=chrome
+
+# Run with Firefox
+pytest tests/ui/ --browser=firefox
+
+# Run in headless mode
+pytest tests/ui/ --browser=chrome --headless
+```
+
 Run with Allure (if installed):
 ```bash
 pytest --alluredir=allure-results
@@ -64,9 +76,13 @@ src/
   contracts/   - Contract validators
   models/      - Pydantic models
   utils/       - Utilities (data factories)
+  ui/          - UI automation (Page Object Model)
+    base_page.py - Base page class
+    pages/       - Page classes
+    utils/       - Browser factory, screenshots
 tests/
   api/         - API tests
-ui/            - Reserved for future UI tests
+  ui/          - UI tests
 ```
 
 ## Features
@@ -75,5 +91,7 @@ ui/            - Reserved for future UI tests
 - Type-safe API responses
 - Positive and negative test scenarios
 - Contract violation detection
-- Extensible architecture for UI tests
+- UI automation with Page Object Model (POM)
+- Multi-browser support (Chrome, Firefox)
+- Automatic screenshots on test failure
 
