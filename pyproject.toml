@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "andriadis-qa"
+version = "0.1.0"
+description = "API test automation for Petstore Swagger"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "requests>=2.31.0",
+    "pydantic>=2.0.0",
+    "pytest>=7.4.0",
+    "pytest-timeout>=2.1.0",
+]
+
+[project.optional-dependencies]
+allure = ["allure-pytest>=2.13.0"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+timeout = 30
+addopts = "-v --tb=short"
+# Ignore incompatible plugins that may be installed globally
+norecursedirs = [".*", "build", "dist", "venv", ".venv"]
+
