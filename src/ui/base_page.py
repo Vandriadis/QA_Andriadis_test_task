@@ -8,7 +8,7 @@ from src.ui.utils.logger import setup_logger
 
 
 class BasePage:
-    def __init__(self, driver: WebDriver, timeout: int = 10):
+    def __init__(self, driver: WebDriver, timeout: int = 20):
         self.driver = driver
         self.wait = WebDriverWait(driver, timeout)
         self.timeout = timeout
@@ -29,7 +29,7 @@ class BasePage:
         return self.driver.find_elements(*locator)
 
     def click(self, locator: tuple, use_javascript: bool = False) -> None:
-        locator_str = f"{locator[0].value}: {locator[1]}"
+        locator_str = f"{locator[0]}: {locator[1]}"
         self.logger.info(f"Clicking on element: {locator_str} (JavaScript: {use_javascript})")
         element = self.wait.until(EC.presence_of_element_located(locator))
         if use_javascript:
@@ -41,7 +41,7 @@ class BasePage:
             self.logger.info(f"Element clicked: {locator_str}")
 
     def is_element_visible(self, locator: tuple, timeout: Optional[int] = None) -> bool:
-        locator_str = f"{locator[0].value}: {locator[1]}"
+        locator_str = f"{locator[0]}: {locator[1]}"
         try:
             wait = WebDriverWait(self.driver, timeout or self.timeout)
             wait.until(EC.visibility_of_element_located(locator))
@@ -52,7 +52,7 @@ class BasePage:
             return False
 
     def scroll_to_element(self, locator: tuple) -> None:
-        locator_str = f"{locator[0].value}: {locator[1]}"
+        locator_str = f"{locator[0]}: {locator[1]}"
         self.logger.info(f"Scrolling to element: {locator_str}")
         element = self.find_element(locator)
         self.driver.execute_script("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", element)
